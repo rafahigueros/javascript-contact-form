@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <title>Contact Form</title>
+    <meta charset="UTF-8" />
+
+    <script>
+	function xmlhttpPost(strURL) {
+	    var xmlHttpReq = false;
+	    var self = this;
+	    // Mozilla/Safari
+	    if (window.XMLHttpRequest) {
+		self.xmlHttpReq = new XMLHttpRequest();
+	    }
+	    // IE
+	    else if (window.ActiveXObject) {
+		self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	    }
+	    self.xmlHttpReq.open('POST', strURL, true);
+	    self.xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    self.xmlHttpReq.onreadystatechange = function() {
+		if (self.xmlHttpReq.readyState == 4) {
+		    updatepage(self.xmlHttpReq.responseText);
+		}
+	    }
+	    self.xmlHttpReq.send(getquerystring());
+	}
+
+	//   The following function obtains two variables from your form (email and message) 
+	//   and builds a string that gets sent to your PHP script.  Change this function to
+	//   obtain whatever fields you want from your form.
+
+	function getquerystring() {
+	    var form	= document.getElementById('main-contact-form');
+	    var name	= form.name.value;
+	    var email 	= form.email.value;
+	    var message = form.message.value;
+	    qstr	= 'name=' + escape(name) + '& email=' + escape(email) + '& message=' + escape(message);
+	    return qstr;
+	}
+
+	function updatepage(str){
+	    document.getElementById("result").innerHTML = str;
+	}
+    </script>
+	
+</head>
+<body>
+
+    <div id="wrap-main">
+
+	<form name="main-contact-form" id="main-contact-form" method="post" action="">
+	<fieldset>
+	    <p>
+		<label for="name">Name:</label><br />
+		<input type="text" placeholder="Name" name="name" value="" />
+	    </p>
+	    <p>
+		<label for="email">Email:</label><br />
+		<input type="text" placeholder="Email" name="email" value="" />
+	    </p>
+	    <p>
+		<label for="message">Message:</label><br />
+		<textarea class="text-area" name="message" cols="50" rows="6"></textarea>
+	    </p>
+	    <p><input id="send" class="send" type="button" value="Send" onclick="xmlhttpPost('send.php')" /></p>
+	</fieldset>
+	</form>
+	    
+	<div id="result"></div>
+	    
+    </div>
+
+</body>
+</html>
