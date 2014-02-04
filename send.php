@@ -14,8 +14,8 @@
     $headers  = "From: $from \r\n";
     $headers .= 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $subject = 'New form subsmision on rafaelhigueros.com';
-    $to = 'rafael.higueros@gmail.com';
+    $subject = 'New form subsmision on JSForm at Github';
+    $to = $email;
 
     //validate name
     if ( $name == 'Name' || $name == '') {
